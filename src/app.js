@@ -13,7 +13,8 @@ app.set('view engine', 'mustache');
 app.engine('mustache', mustacheExpress());
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'pages/index.html'));
+    // res.sendFile(path.join(__dirname, 'pages/index.html'));
+    res.render('index', { jobs: JOBS});
 });
 
 const port = process.env.PORT || 3000;

@@ -153,6 +153,32 @@
         </div>
       </div>
     </div>
+
+    <!--JOBS SECTION-->
+   <div class="container px-4 mt-5">
+    <h2 class="text-center mb-4">Job Opportunities</h2>
+
+    <!-- JOBS LIST -->
+     <div class="d-md-none">
+
+      {{#jobs}}
+        <div class="card mb-3">
+          <div class="card-body">
+            <h5 class="card-title"><a href="/jobs{{id}}">{{title}}</a></h5>
+            <h6 class="card-subtitle my-1 text-body-secondary">
+              {{location}} - {{salary}}
+            </h6>
+            <small class="card-text text-body-secondary">
+              Posted {{posted}}
+            </small> 
+          </div>
+        </div>
+      {{/jobs}}
+
+     </div>
+
+   </div>
+
     
     <!--FOOTER-->
     <div class="container">
