@@ -174,8 +174,29 @@
           </div>
         </div>
       {{/jobs}}
-
      </div>
+
+     <!-- JOBS Table -->
+      <div class="offset-lg-2 col-lg-8">
+        <table class="d-none d-md-table table table-striped table-bordered">
+          <tr class="table-primary text-center">
+            <th>Job Title</th>
+            <th>Location</th>
+            <th>Salary</th>
+            <th>Posted On</th>
+          </tr>
+
+          {{#jobs}}
+          <tr>
+            <td><a href="/jobs{{id}}">{{title}}</a></td>
+            <td>{{location}}</td>
+            <td>{{salary}}</td>
+            <td>{{posted}}</td>
+          </tr>
+          {{/jobs}} 
+
+        </table>
+      </div>
 
    </div>
 
