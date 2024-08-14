@@ -19,11 +19,15 @@ app.get('/', (req, res) => {
 
 
 app.get('/jobs:id', (req, res) => {
-    console.log('req.params', req.params);
+    // console.log('req.params', req.params);
     const id = req.params.id;
     const matchedJob = JOBS.find(job => job.id.toString() === id);
-    console.log('matchedJob', matchedJob);
+    // console.log('matchedJob', matchedJob);
     res.render('job', { job: matchedJob});
+})
+
+app.post('/jobs/:id/apply', (req, res) => {
+    res.send("Got the application.");
 })
 
 const port = process.env.PORT || 3000;
