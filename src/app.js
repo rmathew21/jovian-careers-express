@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
 });
 
 
-app.get('/jobs/:id', (req, res) => {
+app.get('/jobs:id', (req, res) => {
     console.log('req.params', req.params);
     const id = req.params.id;
     const matchedJob = JOBS.find(job => job.id.toString() === id);
