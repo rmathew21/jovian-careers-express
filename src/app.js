@@ -31,14 +31,18 @@ app.get('/jobs:id', (req, res) => {
 })
 
 const transporter = nodemailer.createTransport({
-    host: 'smtp.google.com',
-    port: 465,
-    
+    host: 'mail.gmx.com',
+    port: 587,
+    secure: false,
     auth: {
-        user: process.env.EMAIL_ID,
+        user: process.env.EMAIL_USERNAME,
         pass: process.env.EMAIL_PASSWORD,
-    }
+    },
+    
 });
+
+console.log(process.env.EMAIL_USERNAME); // This should print your email
+console.log(process.env.EMAIL_PASSWORD); // This should print your password
 
 app.post('/jobs/:id/apply', (req, res) => {
     const { name, email, phone, dob, coverletter } = req.body;
@@ -50,8 +54,8 @@ app.post('/jobs/:id/apply', (req, res) => {
     console.log('matchedJob', matchedJob)
 
     const mailOptions = {
-        from: process.env.EMAIL_ID,
-        to: process.env.EMAIL_ID,
+        from: process.env.EMAIL_USERNAME,
+        to: process.env.EMAIL_USERNAME,
         subject: `New Application for ${matchedJob.title}`,
         html: `
             <p><strong>Name:</strong> ${name}</p>
@@ -67,8 +71,8 @@ app.post('/jobs/:id/apply', (req, res) => {
             console.error(error);
             res.status(500).send('Error sending email');
         } else {
-            console.log('Email sent: ' + info.response);
-            res.status(200).send('Email Sent successfully');
+            console.log('Email sent:', info.response);
+            res.status(200).render('applied');
         }
     });
 });
