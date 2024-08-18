@@ -41,8 +41,8 @@ const transporter = nodemailer.createTransport({
     
 });
 
-console.log(process.env.EMAIL_USERNAME); // This should print your email
-console.log(process.env.EMAIL_PASSWORD); // This should print your password
+// console.log(process.env.EMAIL_USERNAME); 
+// console.log(process.env.EMAIL_PASSWORD); 
 
 app.post('/jobs/:id/apply', (req, res) => {
     const { name, email, phone, dob, coverletter } = req.body;
