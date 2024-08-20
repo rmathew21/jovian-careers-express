@@ -5,6 +5,7 @@ const express = require('express');
 const path = require('path');
 const JOBS = require('./jobs');
 const mustacheExpress = require('mustache-express');
+const axios = require('axios');
 
 const app = express(); 
 
@@ -75,6 +76,40 @@ app.post('/jobs/:id/apply', (req, res) => {
             res.status(200).render('applied');
         }
     });
+});
+
+const hcaptchaSecretKey = 'ES_bf7ee2c215734204921dfb4710b4ec4f';
+
+app.post('/submit', async (req, res) => {
+    const token = req.body['h-captcha-response'];
+
+    if (!token) {
+        return res.status(400).send('hCaptcha token is missing.');
+    }
+
+    // Verify the hCaptcha token
+    const verifyURL = `https://hcaptcha.com/siteverify`;
+    try {
+        const response = await axios.post(verifyURL, null, {
+            params: {
+                secret: hcaptchaSecretKey,
+                response: token
+            }
+        });
+
+        const data = response.data;
+
+        if (data.success) {
+            // hCaptcha passed
+            res.send('hCaptcha verification passed. Form submitted successfully!');
+        } else {
+            // hCaptcha failed
+            res.status(400).send('hCaptcha verification failed.');        }
+        }
+     catch (error) {
+        console.error('Error verifying hCaptcha:', error);
+        res.status(500).send('Server error.');
+    }
 });
 
 const port = process.env.PORT || 3000;
